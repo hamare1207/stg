@@ -17,8 +17,9 @@ public:
 	int my;
 	int key[256];
 	
-	int getKeys(int key[]);
-};
+	int getKeys();
+	int getMouse();
+} sy;
 
 class Player{
 private:
@@ -29,14 +30,12 @@ private:
 	
 public:
 	Player();
-	int player(int key[]);
+	int player(int key[], int mx, int my);
 };
 
 // ‚±‚±‚Ü‚Å
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
-
-	System sy;
 	
 	SetOutApplicationLogValidFlag(false);
 	ChangeWindowMode(true);
@@ -54,22 +53,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	while(1){
 		if(ProcessMessage()!=0)		break;
-		sy.getKeys(sy.key);
+
+		sy.getKeys();
+		sy.getMouse();
 
 		if(ClearDrawScreen()!=0)	break;
-
-		pl.player(sy.key);
-
-		
-		if(ScreenFlip()!=0)			break;
 		clsDx();
+
+		pl.player(sy.key, sy.mx, sy.my);
+
+		if(ScreenFlip()!=0)			break;
 	}
 
 	DxLib_End();
 	return 0;
 }
 
-int System::getKeys(int key[]){
+int System::getKeys(){
     char tmp[256];
     GetHitKeyStateAll(tmp);
     for(int i=0; i<256; i++){
@@ -79,14 +79,17 @@ int System::getKeys(int key[]){
     return 0;
 }
 
+int System::getMouse(){
+	GetMousePoint(&mx, &my);
+	return 0;
+}
+
 Player::Player(){
 	x = 320;
 	y = 240;
 }
 
-int Player::player(int key[]){
-	System sy;
-	
+int Player::player(int key[], int mx, int my){
 	if( key[KEY_INPUT_W] || key[KEY_INPUT_UP] ){
 		if(y>=20) y-=s;
 	}
@@ -100,11 +103,9 @@ int Player::player(int key[]){
 		if(x<=620) x+=s;
 	}
 
-	GetMousePoint(&sy.mx, &sy.my);
-	
-	float angle = atan2f((float)(sy.my-y),(float)(sy.mx-x));
+	float angle = atan2f((float)(my-y),(float)(mx-x));
 
-	printfDx("‚ç‚¶‚ ‚ñF%f", angle);
+	printfDx("%f", angle);
 
 	DrawCircle(x+20*cos(angle), y+20*sin(angle), 2, GetColor(255, 255, 255), true);
 
