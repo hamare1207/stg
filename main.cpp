@@ -11,7 +11,7 @@ struct Window{
 
 // 構造体, クラス宣言, プロトタイプ宣言 をここに。
 
-class systems{
+class System{
 public:
 	int mx;
 	int my;
@@ -20,7 +20,7 @@ public:
 	int getKeys(int key[]);
 };
 
-class player{
+class Player{
 private:
 	int x;
 	int y;
@@ -28,15 +28,15 @@ private:
 	const int s = 4;
 	
 public:
-	player();
-	int Player(int key[]);
+	Player();
+	int player(int key[]);
 };
 
 // ここまで
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
 
-	systems sy;
+	System sy;
 	
 	SetOutApplicationLogValidFlag(false);
 	ChangeWindowMode(true);
@@ -50,7 +50,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	player pl;
+	Player pl;
 
 	while(1){
 		if(ProcessMessage()!=0)		break;
@@ -58,7 +58,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		if(ClearDrawScreen()!=0)	break;
 
-		pl.Player(sy.key);
+		pl.player(sy.key);
 
 		
 		if(ScreenFlip()!=0)			break;
@@ -79,13 +79,13 @@ int systems::getKeys(int key[]){
     return 0;
 }
 
-player::player(){
+Player::Player(){
 	x = 320;
 	y = 240;
 }
 
-int player::Player(int key[]){
-	systems sy;
+int Player::player(int key[]){
+	System sy;
 	
 	if( key[KEY_INPUT_W] || key[KEY_INPUT_UP] ){
 		if(y>=20) y-=s;
