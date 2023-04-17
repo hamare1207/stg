@@ -69,7 +69,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	return 0;
 }
 
-int systems::getKeys(int key[]){
+int System::getKeys(int key[]){
     char tmp[256];
     GetHitKeyStateAll(tmp);
     for(int i=0; i<256; i++){
