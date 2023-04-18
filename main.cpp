@@ -1,15 +1,13 @@
 #include <math.h>
 #include "dxlib/DxLib.h"
 
-#define PI 3.14159
-
 struct Window{
 	const static int WIDTH		= 640;
 	const static int HEIGHT		= 480;
-	const static int COLOR_BIT	= 32;
+	const static int COLOR_BIT	= 16;
 };
 
-// 構造体, クラス宣言, プロトタイプ宣言 をここに。
+// 構造体, クラス宣言, プロトタイプ宣言 をここに
 
 class System{
 public:
@@ -36,18 +34,21 @@ public:
 // ここまで
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
-	
-	SetOutApplicationLogValidFlag(false);
-	ChangeWindowMode(true);
-	SetMainWindowText("DxLib");
+
+	// DxLib の初期化, 設定
+
+	SetOutApplicationLogValidFlag(false);	// ログを出力しない
+	ChangeWindowMode(true);					// ウィンドウモード
+
 	SetGraphMode(Window::WIDTH, Window::HEIGHT, Window::COLOR_BIT);
+	SetMainWindowText("HELLO, HELLO, HELLO");
 
 	if(DxLib_Init()==-1) return -1;
-	SetMouseDispFlag(true);
+
+	SetMouseDispFlag(true);					// マウスを常に表示
+	SetDrawScreen(DX_SCREEN_BACK);			// 裏画面に描画する
 
 	// 変数の初期化, 画像のロードなど。
-
-	SetDrawScreen(DX_SCREEN_BACK);
 
 	Player pl;
 
@@ -60,6 +61,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		if(ClearDrawScreen()!=0)	break;
 		clsDx();
 
+		printfDx("%f\n", GetFPS());
 		pl.player(sy.key, sy.mx, sy.my);
 
 		if(ScreenFlip()!=0)			break;
