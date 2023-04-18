@@ -9,7 +9,7 @@ struct Window{
 	const static int COLOR_BIT	= 32;
 };
 
-// \‘¢‘Ì, ƒNƒ‰ƒXéŒ¾, ƒvƒƒgƒ^ƒCƒvéŒ¾ ‚ğ‚±‚±‚ÉB
+// æ§‹é€ ä½“, ã‚¯ãƒ©ã‚¹å®£è¨€, ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€ ã‚’ã“ã“ã«ã€‚
 
 class System{
 public:
@@ -33,19 +33,19 @@ public:
 	int player(int key[], int mx, int my);
 };
 
-// ‚±‚±‚Ü‚Å
+// ã“ã“ã¾ã§
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
 	
 	SetOutApplicationLogValidFlag(false);
 	ChangeWindowMode(true);
-	SetWindowText("DxLib");
+	SetMainWindowText("DxLib");
 	SetGraphMode(Window::WIDTH, Window::HEIGHT, Window::COLOR_BIT);
 
 	if(DxLib_Init()==-1) return -1;
 	SetMouseDispFlag(true);
 
-	// •Ï”‚Ì‰Šú‰», ‰æ‘œ‚Ìƒ[ƒh‚È‚ÇB
+	// å¤‰æ•°ã®åˆæœŸåŒ–, ç”»åƒã®ãƒ­ãƒ¼ãƒ‰ãªã©ã€‚
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
